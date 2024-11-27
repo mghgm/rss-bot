@@ -1,46 +1,37 @@
 package main
 
 import (
-    "fmt"
     "log"
+    "flag"
+    "os"
 
-    "github.com/spf13/cobra"
+    sndr "github.com/mghgm/rss-bot/sender"
 )
 
 var (
-    configPath string 
+    runCmd = flag.NewFlagSet("run", flag.ExitOnError)
+    configPath = runCmd.String("config", "~/.config/rss-bot/config.yaml", "Bot configuration")
+    
+    reconfigureCmd = flag.NewFlagSet("reconfigure", flag.ExitOnError)
 )
 
-var rootCmd = &cobra.Command{
-    Use:   "rss-bot",
-    Short: "A simple RSS bot",
-}
-
-var reconfigureCmd = &cobra.Command{
-    Use:   "reconfigure",
-    Short: "Reconfigure the RSS bot",
-    Run: func(cmd *cobra.Command, args []string) {
-        fmt.Println("Reconfiguring the RSS bot...")
-    },
-}
-
-var runCmd = &cobra.Command{
-    Use:   "run",
-    Short: "Run the RSS bot",
-    Run: func(cmd *cobra.Command, args []string) {
-        fmt.Printf("Bot is using config path %s\n", configPath)
-    },
-}
-
-func init() {
-    runCmd.Flags().StringVarP(&configPath, "config", "c", "~/.config/rss-bot/config.yaml", "Bot configuration")
-    
-    rootCmd.AddCommand(reconfigureCmd)
-    rootCmd.AddCommand(runCmd)
-}
-
 func main() {
-    if err := rootCmd.Execute(); err != nil {
-        log.Fatal(err)
+    flag.Parse() 
+
+    if len(os.Args) < 2 {
+        log.Fatal("Invalid cmd format!")
+    }
+    
+    switch os.Args[1] {
+    case "run":
+        runCmd.Parse(os.Args[2:])
+        log.Println("run")
+        log.Printf("config: %v\n", *configPath)
+    case "reconfigure":
+        reconfigureCmd.Parse(os.Args[2:])
+        log.Println("reconfigure")
+    
+    default:
+        log.Fatal("Invalid cmd format!")
     }
 }
