@@ -1,11 +1,13 @@
 package main
 
 import (
-    "log"
-    "flag"
-    "os"
+	"flag"
+	"fmt"
+	"log"
+	"os"
 
-    sndr "github.com/mghgm/rss-bot/sender"
+	// sndr "github.com/mghgm/camelnews/sender"
+	"github.com/mghgm/camelnews/collector"
 )
 
 var (
@@ -27,6 +29,16 @@ func main() {
         runCmd.Parse(os.Args[2:])
         log.Println("run")
         log.Printf("config: %v\n", *configPath)
+        hckrNews := collector.NewRSSAgency("Rss Newest", "Programming", "https://hnrss.org/newest")
+        news, err := hckrNews.Collect()
+        if err != nil {
+            log.Fatal(err)
+        }
+        
+        for _, n := range news {
+            fmt.Printf("title: %s link: %s\n", n.Title, n.Link)
+        }
+
     case "reconfigure":
         reconfigureCmd.Parse(os.Args[2:])
         log.Println("reconfigure")

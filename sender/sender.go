@@ -2,12 +2,11 @@ package sender
 
 
 type Post struct {
-    Title string `json:"title"`
-    Desc string `json:"desc"`
-    Tags []string `json:"tags"`
-    Ref string `json:"ref"`
+    Title string
+    Desc string
+    Tags []string
+    Ref string
 }
-type Bal interface{}
 
 type Sender interface {
     Send(post Post)

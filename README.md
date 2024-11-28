@@ -1,1 +1,7 @@
-# rss-bot
+# Camel News
+
+- [ ] RSS
+- [ ] Crawl?
+- [ ] Dockerfile
+- [ ] compose
+

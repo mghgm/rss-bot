@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"golang.org/x/net/proxy"
 )
 
 const (
