@@ -1,0 +1,16 @@
+collectors:
+- type: "rss"
+  title: "Hacker News"
+  category: "Programming"
+  scrapeDuration: "5s"
+  link: "https://hnrss.org/newest"
+- type: "rss"
+  title: "Brendan Gregg"
+  category: "Performance"
+  scrapeDuration: "5s"
+  link: "https://www.brendangregg.com/blog/rss.xml"
+senders:
+- type: "telegrambot"
+  token: "7090711414:AAG_hwE2zXFqz67m7cE7yYq753cSMENPAmk"
+  proxy: true
+  

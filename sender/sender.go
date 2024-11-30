@@ -1,5 +1,9 @@
 package sender
 
+import (
+    "github.com/mghgm/camelnews/collector"
+)
+
 
 type Post struct {
     Title string
@@ -9,5 +13,6 @@ type Post struct {
 }
 
 type Sender interface {
-    Send(post Post)
+    Start() chan collector.News
+    send(chatID int64, post Post) error
 }

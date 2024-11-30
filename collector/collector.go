@@ -10,12 +10,15 @@ type News struct {
     Link string
 }
 
-type Agency struct {
+type AgencyCollector struct {
     title string 
     category string 
     lastFetch time.Time
+    scrapeDuration time.Duration
 }
 
 type Collector interface {
-    Collect() []News
+    Start() chan News
+    collect(updates chan <- News) (error)
 }
+
